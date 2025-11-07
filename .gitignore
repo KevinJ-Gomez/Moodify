@@ -1,0 +1,37 @@
+Ficheros específicos del Sistema Operativo
+
+.DS_Store
+Thumbs.db
+
+Ficheros de IDEs (Visual Studio Code, JetBrains, etc.)
+
+.vscode/
+.idea/
+*.suo
+*.user
+.user.
+*.log
+
+Ficheros de Node.js / Angular
+
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
+*.lock
+
+Ficheros de PHP / Symfony / Composer
+
+vendor/
+composer.lock
+/public/build/
+/var/
+.env.local
+.env.*.local
+
+Ficheros de Docker
+
+.docker/data/
