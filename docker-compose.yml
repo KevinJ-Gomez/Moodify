@@ -8,13 +8,15 @@ services:
     working_dir: /var/www/app
     volumes:
       - ./symfony-backend:/var/www/app
+    environment:
+      DATABASE_URL: "postgresql://symfony:password@db:5432/symfony_db?serverVersion=13&charset=utf8"
     depends_on:
       db:
         condition: service_healthy
     ports:
-      - "8000:8000"
+      - "8001:8000"
     command: >
-      bash -c "
+      sh -c "
         until pg_isready -h db -U symfony -d symfony_db; do
           sleep 2;
         done;
@@ -33,17 +35,16 @@ services:
         symfony server:start --no-tls --port=8000 --allow-all-ip;
       "
 
-
   db:
     image: postgres:13
     container_name: symfony_postgres
     restart: always
     environment:
-      POSTGRES_USER: symfony
-      POSTGRES_PASSWORD: password
+      POSTGES_USER: symfony
+      POSTGES_PASSWORD: password
       POSTGRES_DB: symfony_db
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -64,9 +65,15 @@ services:
     depends_on:
       - backend
     ports:
-      - "4200:4200"
-    command: ["sh", "-c", "npm install && ng serve --host 0.0.0.0 --poll 2000 --watch"]
-
+      - "4201:4200"
+    command: >
+      sh -c "
+        echo 'Asegurando dependencias de npm (npm install)...'
+        npm install
+        
+        echo 'Iniciando ng serve...'
+        ng serve --host 0.0.0.0 --poll 2000 --watch
+      "
 
 volumes:
   pgdata:

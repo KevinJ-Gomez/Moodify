@@ -1,38 +1,55 @@
-ARG SYMFONY_PARAMS="MockApp"
+# Usamos una imagen oficial de PHP (versión 8.2) ligera (Alpine)
+FROM php:8.2-alpine
 
-FROM php:8.2-apache
+# Copiamos Composer (gestor de paquetes de PHP) desde su imagen oficial
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN apt update && apt install -y \
-    libicu-dev \
-    libonig-dev \
+# Variables de entorno para las dependencias de 'phpsize' (para compilar)
+ENV PHPIZE_DEPS autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c
+
+# Instalamos las dependencias del sistema operativo
+# 'apk' es el gestor de paquetes de Alpine (como 'apt' en Ubuntu)
+RUN apk add --no-cache \
+    $PHPIZE_DEPS \
+    icu-dev \
     libzip-dev \
-    zip \
-    unzip \
+    libpq-dev \
+    # ---- CORRECCIÓN AQUÍ ----
+    # Añadimos 'postgresql-client' que contiene 'pg_isready'
+    postgresql-client \
+    # -------------------------
+    # Dependencias para Symfony CLI (¡muy importante!)
     curl \
     git \
-    postgresql-client \
-    libpq-dev \
-    && git config --global user.email "you@example.com" && git config --global user.name "Your Name" \
-    && docker-php-ext-configure intl \
-    && docker-php-ext-install intl \
-    && docker-php-ext-install mbstring \
-    && docker-php-ext-install zip \
-    && docker-php-ext-install pdo_pgsql
+    # Dependencias para otras extensiones
+    zlib-dev \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    libsodium-dev \
+    oniguruma-dev \
+    libxml2-dev
 
-RUN docker-php-ext-enable intl mbstring zip pdo_pgsql
+# Instalamos las "extensiones" de PHP que Symfony necesita.
+RUN docker-php-ext-install \
+    pdo \
+    pdo_pgsql \
+    intl \
+    zip \
+    gd \
+    sodium \
+    mbstring \
+    exif
 
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV SYMFONY_PARAMS_STD="MockApp"
+# 'opcache' es una extensión que viene con PHP pero necesita ser "activada"
+RUN docker-php-ext-enable opcache
 
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash && apt install -y symfony-cli
+# Instalamos el Symfony CLI (la herramienta de comandos de Symfony)
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | sh
+RUN apk add symfony-cli
 
-WORKDIR /usr/src
-VOLUME /usr/src
+# Establecemos el directorio de trabajo DENTRO del contenedor
+WORKDIR /var/www/app
 
-COPY ./docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-ENTRYPOINT ["docker-entrypoint.sh"]
-
-CMD sh -c "composer install;composer require nelmio/cors-bundle;php bin/console doctrine:database:create --if-not-exists;php bin/console doctrine:migrations:migrate --no-interaction;apache2-foreground"
+# Por defecto, el contenedor no hace nada.
+CMD ["php", "-a"]
