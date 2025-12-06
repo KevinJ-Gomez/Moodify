@@ -1,0 +1,52 @@
+{
+  "LOGIN": {
+    "BRAND_TAGLINE": "Feel the music. Live the moment.",
+    "EMAIL_LABEL": "Email Address",
+    "PASSWORD_LABEL": "Password",
+    "BTN_ENTER": "Log In",
+    "BTN_LOADING": "Connecting...",
+    "FOOTER_NEW": "New to Moodify?",
+    "LINK_REGISTER": "Create your free account",
+    "ERROR_CREDENTIALS": "Incorrect email or password",
+    "ERROR_SERVER": "Connection error"
+  },
+  "REGISTER": {
+    "TITLE": "Join Us",
+    "TAGLINE": "Create your Moodify account",
+    "EMAIL_LABEL": "Email Address",
+    "EMAIL_PLACEHOLDER": "you@email.com",
+    "PASSWORD_LABEL": "Password",
+    "PASSWORD_PLACEHOLDER": "Minimum 6 characters",
+    "BTN_CREATE": "Create Account",
+    "BTN_CREATING": "Creating profile...",
+    "FOOTER_MEMBER": "Already a member?",
+    "LINK_LOGIN": "Log in"
+  },
+  "DASHBOARD": {
+    "GREETING": "Hello, Kevin",
+    "SUBTITLE": "How are you feeling today?",
+    "MOOD_ALL": "All",
+    "MOOD_HAPPY": "Happy",
+    "MOOD_SAD": "Melancholic",
+    "MOOD_RELAX": "Chill",
+    "MOOD_ENERGY": "Energy",
+    "SECTION_FOR_YOU": "Made for you",
+    "SECTION_RECENT": "Recently played",
+    "LINK_SEE_ALL": "See all",
+    "NAV_HOME": "Home",
+    "NAV_SEARCH": "Search",
+    "NAV_LIBRARY": "Your Library",
+    "NAV_CREATE": "Create Playlist",
+    "NAV_LIKES": "Liked Songs",
+    "BTN_LOGOUT": "Log Out",
+    "RECENT_SESSION": "Afternoon Session",
+    "TIME_AGO": "2 hours ago",
+    "SETTINGS_TITLE": "Preferences",
+    "SETTINGS_THEME": "Theme",
+    "SETTINGS_THEME_DARK": "Dark",
+    "SETTINGS_THEME_LIGHT": "Light",
+    "SETTINGS_LANG": "Language",
+    "SETTINGS_LANG_ES": "Spanish",
+    "SETTINGS_LANG_EN": "English"
+  }
+}

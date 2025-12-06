@@ -1,0 +1,52 @@
+{
+  "LOGIN": {
+    "BRAND_TAGLINE": "Siente la música. Vive el momento.",
+    "EMAIL_LABEL": "Correo Electrónico",
+    "PASSWORD_LABEL": "Contraseña",
+    "BTN_ENTER": "Iniciar Sesión",
+    "BTN_LOADING": "Conectando...",
+    "FOOTER_NEW": "¿Nuevo en Moodify?",
+    "LINK_REGISTER": "Crea tu cuenta gratis",
+    "ERROR_CREDENTIALS": "Email o contraseña incorrectos",
+    "ERROR_SERVER": "Error de conexión"
+  },
+  "REGISTER": {
+    "TITLE": "Únete",
+    "TAGLINE": "Crea tu cuenta en Moodify",
+    "EMAIL_LABEL": "Correo Electrónico",
+    "EMAIL_PLACEHOLDER": "tu@email.com",
+    "PASSWORD_LABEL": "Contraseña",
+    "PASSWORD_PLACEHOLDER": "Mínimo 6 caracteres",
+    "BTN_CREATE": "Crear Cuenta",
+    "BTN_CREATING": "Creando perfil...",
+    "FOOTER_MEMBER": "¿Ya eres miembro?",
+    "LINK_LOGIN": "Inicia sesión"
+  },
+  "DASHBOARD": {
+    "GREETING": "Hola, Kevin",
+    "SUBTITLE": "¿Cómo te sientes hoy?",
+    "MOOD_ALL": "Todo",
+    "MOOD_HAPPY": "Feliz",
+    "MOOD_SAD": "Melancólico",
+    "MOOD_RELAX": "Relax",
+    "MOOD_ENERGY": "Energía",
+    "SECTION_FOR_YOU": "Hecho para ti",
+    "SECTION_RECENT": "Escuchado recientemente",
+    "LINK_SEE_ALL": "Ver todo",
+    "NAV_HOME": "Inicio",
+    "NAV_SEARCH": "Buscar",
+    "NAV_LIBRARY": "Tu Biblioteca",
+    "NAV_CREATE": "Crear Playlist",
+    "NAV_LIKES": "Tus 'Me Gusta'",
+    "BTN_LOGOUT": "Cerrar Sesión",
+    "RECENT_SESSION": "Sesión de tarde",
+    "TIME_AGO": "Hace 2 horas",
+    "SETTINGS_TITLE": "Preferencias",
+    "SETTINGS_THEME": "Tema",
+    "SETTINGS_THEME_DARK": "Oscuro",
+    "SETTINGS_THEME_LIGHT": "Claro",
+    "SETTINGS_LANG": "Idioma",
+    "SETTINGS_LANG_ES": "Español",
+    "SETTINGS_LANG_EN": "Inglés"
+  }
+}

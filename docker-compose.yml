@@ -10,6 +10,8 @@ services:
       - ./symfony-backend:/var/www/app
     environment:
       DATABASE_URL: "postgresql://symfony:password@db:5432/symfony_db?serverVersion=13&charset=utf8"
+      # Confianza en proxies para Docker
+      TRUSTED_PROXIES: "127.0.0.1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
     depends_on:
       db:
         condition: service_healthy
@@ -18,21 +20,14 @@ services:
     command: >
       sh -c "
         until pg_isready -h db -U symfony -d symfony_db; do
+          echo 'Esperando a PostgreSQL...';
           sleep 2;
         done;
-        
-        if [ ! -f /var/www/app/vendor/autoload.php ]; then
-          composer install;
-        fi
-        
+        composer install --prefer-dist --no-progress --no-interaction;
         php bin/console doctrine:database:create --if-not-exists;
-        php bin/console doctrine:schema:update --force;
-
-        if symfony server:status > /dev/null 2>&1; then
-          symfony server:stop;
-        fi
-
-        symfony server:start --no-tls --port=8000 --allow-all-ip;
+        php bin/console doctrine:migrations:migrate --no-interaction;
+        echo 'Iniciando servidor PHP...';
+        php -S 0.0.0.0:8000 -t public
       "
 
   db:
@@ -40,8 +35,8 @@ services:
     container_name: symfony_postgres
     restart: always
     environment:
-      POSTGES_USER: symfony
-      POSTGES_PASSWORD: password
+      POSTGRES_USER: symfony
+      POSTGRES_PASSWORD: password
       POSTGRES_DB: symfony_db
     ports:
       - "5433:5432"
@@ -66,12 +61,12 @@ services:
       - backend
     ports:
       - "4201:4200"
+    # Asegúrate de que esta línea 'command' esté al mismo nivel que 'ports' o 'build', NO dentro de ellos
     command: >
       sh -c "
-        echo 'Asegurando dependencias de npm (npm install)...'
+        echo 'Instalando dependencias...'
         npm install
-        
-        echo 'Iniciando ng serve...'
+        echo 'Iniciando Angular...'
         ng serve --host 0.0.0.0 --poll 2000 --watch
       "
 
